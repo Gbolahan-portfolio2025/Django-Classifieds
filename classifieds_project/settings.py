@@ -43,8 +43,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'guardian',
-    'otp',
-    'otp_totp',
+    'django_otp',        # <-- use django_otp, not otp
+    'django_otp.plugins.otp_totp',
 
 ]
 
@@ -159,12 +159,12 @@ ANONYMOUS_USER_NAME = 'anonymous'
 AUTH_USER_MODEL = 'accounts.CustomUser'
 SITE_ID = 1
 
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+ACCOUNT_SIGNUP_FIELDS = ['email*', 'password1*', 'password2*']
+ACCOUNT_LOGIN_METHODS = {'email'}
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
