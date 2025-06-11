@@ -76,7 +76,7 @@ ROOT_URLCONF = 'classifieds_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -177,4 +177,5 @@ DEFAULT_FROM_EMAIL = 'Your Project <noreply@yourdomain.com>'
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "[Classifieds] "
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
 
-
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"

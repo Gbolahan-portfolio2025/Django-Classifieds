@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Classified Ads</h1>
+<a href="{% url 'ad_create' %}">+ Create New Ad</a>
+<ul>
+    {% for ad in ads %}
+    <li>
+        <a href="{% url 'ad_detail' ad.slug %}">{{ ad.title }}</a>
+        - {{ ad.price }} - {{ ad.category.name }}
+    </li>
+    {% empty %}
+    <li>No ads available.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

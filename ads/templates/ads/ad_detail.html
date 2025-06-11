@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ ad.title }}</h1>
+<p>{{ ad.description }}</p>
+<p>Price: {{ ad.price }}</p>
+<p>Category: {{ ad.category.name }}</p>
+
+{% if ad.image %}
+<img src="{{ ad.image.url }}" alt="{{ ad.title }}" width="300" />
+{% endif %}
+
+{% if request.user == ad.owner %}
+<p>
+    <a href="{% url 'ad_update' ad.slug %}">Edit</a> |
+    <a href="{% url 'ad_delete' ad.slug %}">Delete</a>
+</p>
+{% endif %}
+
+<a href="{% url 'ad_list' %}">← Back to ads</a>
+{% endblock %}
