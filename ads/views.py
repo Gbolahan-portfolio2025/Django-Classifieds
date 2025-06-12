@@ -61,3 +61,8 @@ def ad_delete(request, slug):
     
     return render(request, "ads/ad_confirm_delete.html", {"ad": ad})
 
+
+@login_required
+def my_ads(request):
+    ads = Ad.objects.filter(owner=request.user)
+    return render(request, "ads/my_ads.html", {"ads": ads})

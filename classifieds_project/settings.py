@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'guardian',
     'django_otp',        # <-- use django_otp, not otp
     'django_otp.plugins.otp_totp',
-
+    'ads',
 ]
 
 MIDDLEWARE = [

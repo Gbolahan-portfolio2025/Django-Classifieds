@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>My Ads</h1>
+
+    {% if ads %}
+        <ul>
+            {% for ad in ads %}
+                <li>
+                    <a href="{% url 'ad_detail' ad.slug %}">{{ ad.title }}</a>
+                    - <a href="{% url 'ad_update' ad.slug %}">Edit</a>
+                    - <a href="{% url 'ad_delete' ad.slug %}">Delete</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You haven't posted any ads yet.</p>
+    {% endif %}
+{% endblock %}

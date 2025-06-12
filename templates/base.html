@@ -5,6 +5,18 @@
         <title>Classifieds</title>
     </head>
     <body>
+        <nav>
+            <a href="{% url 'ad_list' %}">Home</a>
+            {% if user.is_authenticated %}
+            <a href="{% url 'my_ads' %}">My Ads</a>
+            <a href="{% url 'ad_create' %}">Post Ad</a>
+            <a href="{% url 'account_logout' %}">Logout</a>
+            {% else %}
+            <a href="{% url 'account_login' %}">Login</a>
+            <a href="{% url 'account_signup' %}">Sign Up</a>
+            {% endif %}
+            </nav>
+
         {% if messages %}
         <ul>
             {% for message in messages %}
@@ -12,7 +24,10 @@
             {% endfor %}
         </ul>
         {% endif %}
-        {% block content %}
-        {% endblock %}
+
+        <div>
+            {% block content %}
+            {% endblock %}
+        </div>
     </body>
 </html>

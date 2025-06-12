@@ -25,15 +25,14 @@ class Ad(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     image = models.ImageField(upload_to='ads/', blank=True, null=True)
-    status = models.CharField(max_length=10, choices=Status.choices, default=Status.Draft)
-    owner = models.ForeignKey(settings.AUTH_User_MODEL, on_delete=models.CASCADE, related_name='ads')
+    status = models.CharField(max_length=10, choices=Status.choices, default=Status.DRAFT)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='ads')
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         permissions = [
-            ('change_ad', 'Can change this ad'),
-            ('delete_ad', 'Can delete this ad'),
+            ("publish_ad", "Can publish ad"),
         ]
 
     def save(self, *args, **kwargs):
