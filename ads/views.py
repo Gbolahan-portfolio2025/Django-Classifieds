@@ -3,13 +3,39 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
 from guardian.shortcuts import assign_perm
-from .models import Ad
+from .models import Ad, Category
 from .forms import AdForm
+from django.db.models import Q
+from django.core.paginator import Paginator
+
 # Create your views here.
 
 def ad_list(request):
+    query = request.GET.get("q", "")
+    category_id = request.GET.get("category", "")
     ads = Ad.objects.filter(status="published")
-    return render(request, "ads/ad_list.html", {"ads": ads})
+
+    if query:
+        ads = ads.filter(Q(title__icontains=query) | Q(description__icontains=query))
+    if category_id:
+        ads = ads.filter(category_id=category_id)
+
+    paginator = Paginator(ads, 10)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
+    categories = Category.objects.all()
+    return render(
+        request,
+        "ads/ad_list.html",
+        {
+            "page_obj": page_obj,
+            "query": query,
+            "category_id": category_id,
+            "categories": categories,
+        },
+    )
+
 
 def ad_detail(request, slug):
     ad = get_object_or_404(Ad, slug=slug, status="published")
