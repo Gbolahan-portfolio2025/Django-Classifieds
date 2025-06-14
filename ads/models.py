@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.utils.text import slugify
 from django.utils import timezone
+from datetime import timedelta
 # Create your models here.
 
 RESERVED_SLUGS = {
@@ -33,6 +34,8 @@ class Ad(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='ads')
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
+    expires_at = models.DateTimeField(blank=True, null=True)
+    is_archived = models.BooleanField(default=False)
 
     class Meta:
         permissions = [
@@ -53,6 +56,13 @@ class Ad(models.Model):
                 num += 1
 
             self.slug = slug
+
+        if not self.expires_at:
+            self.expires_at = timezone.now() + timedelta(days=30)
+
+        def is_expired(self):
+            return self.expires_at and timezone.now() > self.expires_at
+    
         super().save(*args, **kwargs)
 
 

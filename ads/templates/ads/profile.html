@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>👤 Your Profile</h1>
+
+<img src="{{ gravatar_url }}" alt="Profile picture" width="100">
+
+<ul>
+    <li><strong>Username:</strong> {{ user.username }}</li>
+    <li><strong>Email:</strong> {{ user.email }}</li>
+    <li><strong>Joined:</strong> {{ user.date_joined }}</li>
+</ul>
+
+<p>
+    <a href="{% url 'my_ads' %}">📦 My Ads</a><br>
+    <a href="{% url 'account_change_password' %}">🔐 Change Password</a><br>
+    <a href="{% url 'delete_account' %}">❌ Delete Account</a>
+</p>
+{% endblock %}

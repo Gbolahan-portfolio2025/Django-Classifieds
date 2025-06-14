@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>❌ Delete Account</h1>
+<p>Are you sure you want to permanently delete your account?</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Yes, delete my account</button>
+    <a href="{% url 'profile' %}">Cancel</a>
+</form>
+{% endblock %}

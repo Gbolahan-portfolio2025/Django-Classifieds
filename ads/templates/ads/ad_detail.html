@@ -7,6 +7,8 @@
 
 {% if ad.image %}
 <img src="{{ ad.image.url }}" alt="{{ ad.title }}" width="300" />
+{% else %}
+<img src="/static/img/default-image.png" alt="No image" width="300">
 {% endif %}
 
 {% if request.user == ad.owner %}

@@ -1,7 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Browse Ads</h1>
-<a href="{% url 'ad_create' %}">+ Create New Ad</a>
+
+{% if user.is_authenticated %}
+    <a href="{% url 'ad_create' %}">+ Create New Ad</a>
+{% else %}
+    <p><a href="{% url 'account_login' %}?next={% url 'ad_create' %}">Sign in</a> to post an ad</p>
+{% endif %}
 <ul>
     {% for ad in ads %}
     <li>

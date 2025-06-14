@@ -8,14 +8,31 @@ from .forms import AdForm
 from django.db.models import Q
 from django.core.paginator import Paginator
 from django.http import Http404
+from django.utils import timezone
+from django.contrib.auth import get_user_model
+import hashlib
+from django.contrib.auth import logout
+
 
 # Create your views here.
+@login_required
+def profile_view(request):
+    user = request.user
+    email = user.email.lower().encode('utf-8')
+    gravatar_hash = hashlib.md5(email).hexdigest()
+    gravatar_url = f"https://www.gravatar.com/avatar/{gravatar_hash}?s=200&d=identicon"
+
+    return render(request, "ads/profile.html", {
+        "user": user,
+        "gravatar_url": gravatar_url
+    })
+
 
 @login_required
 def ad_list(request):
     query = request.GET.get("q", "")
     category_id = request.GET.get("category", "")
-    ads = Ad.objects.filter(status="published").order_by("-created_at")
+    ads = Ad.objects.all().order_by("-created_at") if request.user.is_staff else Ad.objects.filter(status="published", is_archived=False).filter(Q(expires_at__isnull=True) | Q(expires_at__gt=timezone.now())).order_by("-created_at")
 
     if query:
         ads = ads.filter(Q(title__icontains=query) | Q(description__icontains=query))
@@ -44,10 +61,14 @@ def ad_list(request):
 def ad_detail(request, slug):
     ad = get_object_or_404(Ad, slug=slug)
 
-    if ad.status != "published" and ad.owner != request.user:
-        raise Http404("Ad not found")
-
+    if ad.status != "published":
+        if not request.user.is_authenticated or ( 
+            not request.user.is_staff and ad.owner != request.user
+         ):
+            raise Http404("No Ad matches the qiven query.")
+        
     return render(request, "ads/ad_detail.html", {"ad": ad})
+
 
 @login_required
 def ad_create(request):
@@ -100,3 +121,15 @@ def ad_delete(request, slug):
 def my_ads(request):
     ads = Ad.objects.filter(owner=request.user)
     return render(request, "ads/my_ads.html", {"ads": ads})
+
+
+@login_required
+def delete_account(request):
+    if request.method == "POST":
+        user = request.user
+        logout(request)
+        user.delete()
+        messages.success(request, "Your account has been deleted.")
+        return redirect("ad_list")
+    return render(request, "ads/delete_account.html")
+
