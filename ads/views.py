@@ -7,13 +7,15 @@ from .models import Ad, Category
 from .forms import AdForm
 from django.db.models import Q
 from django.core.paginator import Paginator
+from django.http import Http404
 
 # Create your views here.
 
+@login_required
 def ad_list(request):
     query = request.GET.get("q", "")
     category_id = request.GET.get("category", "")
-    ads = Ad.objects.filter(status="published")
+    ads = Ad.objects.filter(status="published").order_by("-created_at")
 
     if query:
         ads = ads.filter(Q(title__icontains=query) | Q(description__icontains=query))
@@ -29,6 +31,7 @@ def ad_list(request):
         request,
         "ads/ad_list.html",
         {
+            "ads": ads,
             "page_obj": page_obj,
             "query": query,
             "category_id": category_id,
@@ -37,8 +40,13 @@ def ad_list(request):
     )
 
 
+@login_required
 def ad_detail(request, slug):
-    ad = get_object_or_404(Ad, slug=slug, status="published")
+    ad = get_object_or_404(Ad, slug=slug)
+
+    if ad.status != "published" and ad.owner != request.user:
+        raise Http404("Ad not found")
+
     return render(request, "ads/ad_detail.html", {"ad": ad})
 
 @login_required

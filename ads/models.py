@@ -4,6 +4,10 @@ from django.utils.text import slugify
 from django.utils import timezone
 # Create your models here.
 
+RESERVED_SLUGS = {
+    "create", "edit", "delete", "my-ads", "update", "admin", "accounts"
+}
+
 class Category(models.Model):
     name = models.CharField(max_length=100,unique=True)
 
@@ -40,9 +44,14 @@ class Ad(models.Model):
             base_slug = slugify(self.title)
             slug = base_slug
             num = 1
-            while Ad.objects.filter(slug=slug).exists():
+
+            while (
+                slug in RESERVED_SLUGS
+                or Ad.objects.filter(slug=slug).exists()
+            ):
                 slug = f"{base_slug}-{num}"
                 num += 1
+
             self.slug = slug
         super().save(*args, **kwargs)
 
