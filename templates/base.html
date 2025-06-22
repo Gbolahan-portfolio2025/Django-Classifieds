@@ -1,33 +1,44 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Classifieds</title>
+        <title>{% block title %}Classifields{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="{% static 'src/output.css' %}" rel="stylesheet">
     </head>
-    <body>
-        <nav>
-            {% if user.is_authenticated %}
-            <a href="{% url 'ad_list' %}">All Ads</a> |
-            <a href="{% url 'my_ads' %}">My Ads</a> |
-            <a href="{% url 'account_logout' %}">Logout</a>
-            <a href="{% url 'profile' %}">Profile</a>
-            {% else %}
-            <a href="{% url 'account_login' %}">Login</a> 
-            <a href="{% url 'account_signup' %}">Sign Up</a>
-            {% endif %}
-            </nav>
+    <body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
+        <!-- NAVIGATION BAR -->
+        <nav class="bg-white border-b border-gray-200 shadow-sm px-4 py-3">
+            <div class="flex justify-between items-center max-w-7x1 mx-auto">
+                <div class="flex space-x-4">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'ad_list' %}" class="text-sm text-gray-700 hover:text-indigo-600 font-medium">All Ads</a> |
+                        <a href="{% url 'my_ads' %}" class="text-sm text-gray-700 hover:text-indigo-600 font-medium">My Ads</a> |
+                        <a href="{% url 'profile' %}" class="text-sm text-gray-700 hover:text-indigo-600 font-medium">Profile</a>
+                        <a href="{% url 'account_logout' %}" class="text-sm text-red-600 hover:underline font-medium">Logout</a>
+                    {% else %}
+                        <a href="{% url 'account_login' %}" class="text-sm text-indigo-600 hover:underline font-medium">Login</a> 
+                        <a href="{% url 'account_signup' %}" class="text-sm text-indigo-600 hover:underline font-medium">Sign Up</a>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
 
+        <!-- MESSAGES -->
         {% if messages %}
-        <ul>
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
+        <div class="max-w-3xl mx-auto mt-4 px-4">
+            <ul class="space-y-2">
+                {% for message in messages %}
+                    <li class="text-sm font-medium text-white px-4 py-2 rounded {{ message.tags|default:'bg-blue-500' }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
         {% endif %}
 
-        <div>
+        <main class="flex-grow w-full max-w-5xl mx-auto px-4 py-6">
             {% block content %}
             {% endblock %}
-        </div>
+        </main>
     </body>
 </html>

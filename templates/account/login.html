@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}Login - Classifieds{% endblock %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center px-4 py-12 bg-gray-50">
+    <div class="w-full max-w-md bg-white shadow-xl rounded-2xl px-8 py-10 space-y-6">
+
+        <!-- Header -->
+        <div class="text-center">
+            <h2 class="text-2xl font-bold text-gray-800">Welcome Back</h2>
+            <p class="text-sm text-gray-500 mt-1">Please sign in to continue</p>
+        </div>
+
+        <!-- Flash Messages -->
+        {% if messages %}
+        <div class="space-y-2">
+            {% for message in messages %}
+            <div class="text-sm px-4 py-2 rounded-lg {{ message.tags|default:'bg-blue-100 text-blue-800' }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Form -->
+        <form method="POST" action="{% url 'account_login' %}" class="space-y-5">
+            {% csrf_token %}
+
+            <!-- Email -->
+            <div>
+                <label for="id_login" class="block text-sm font-medium text-gray-700">Email</label>
+                <input type="email" name="login" id="id_login" required
+                    class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    placeholder="you@example.com">
+            </div>
+
+            <!-- Password -->
+            <div>
+                <label for="id_password" class="block text-sm font-medium text-gray-700">Password</label>
+                <input type="password" name="password" id="id_password" required
+                    class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    placeholder="••••••••">
+            </div>
+
+            <!-- Remember me + Forgot password -->
+            <div class="flex justify-between items-center text-sm">
+                <label class="flex items-center space-x-2 text-gray-600">
+                    <input type="checkbox" name="remember" class="rounded text-indigo-600 border-gray-300">
+                    <span>Remember me</span>
+                </label>
+                <a href="{% url 'account_reset_password' %}" class="text-indigo-600 hover:underline">Forgot
+                    password?</a>
+            </div>
+
+            <!-- Submit button -->
+            <button type="submit"
+                class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 rounded-xl transition">
+                Sign In
+            </button>
+
+            <!-- Divider -->
+            <div class="flex items-center gap-4 text-sm text-gray-400 mt-4">
+                <hr class="flex-grow border-gray-300" />
+                <span>or</span>
+                <hr class="flex-grow border-gray-300" />
+            </div>
+
+            <!-- Social login buttons -->
+            <div class="space-y-2">
+                {% include "socialaccount/snippets/login.html" with process="login" %}
+            </div>
+        </form>
+
+        <!-- Sign up prompt -->
+        <p class="text-center text-sm text-gray-600">
+            Don’t have an account?
+            <a href="{% url 'account_signup' %}" class="text-indigo-600 hover:underline font-medium">
+                Sign up
+            </a>
+        </p>
+
+    </div>
+</div>
+{% endblock %}
