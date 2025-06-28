@@ -3,18 +3,18 @@
 
 {% block content %}
     <div>
-        <nav class="">
-            <div class="flex justify-around">
+        <nav>
+            <div class="flex justify-around uppercase text-[1rem] font-bold tracking-wide text-[#191919] ">
                 {% if user.is_authenticated %}
-                <a href="{% url 'ad_list' %}">All Ads</a>
-                <a href="{% url 'my_ads' %}">My Ads</a>
-                <a href="{% url 'profile' %}">Profile</a>
-                <a href="{% url 'account_logout' %}">Logout</a>
+                <a href="{% url 'ad_list' %}" class="hover:text-purple-600 transition-colors duration-200">All Ads</a>
+                <a href="{% url 'my_ads' %}"  class="hover:text-purple-600 transition-colors duration-200">My Ads</a>
+                <a href="{% url 'profile' %}"  class="hover:text-purple-600 transition-colors duration-200">Profile</a>
+                <a href="{% url 'account_logout' %}"  class="hover:text-purple-600 transition-colors duration-200">Logout</a>
                 {% else %}
-                <a href="{% url 'account_login' %}">Login</a>
-                <a href="{% url 'account_signup' %}">Sign Up</a>
-                <a href="{% url 'account_login' %}">Login</a>
-                <a href="{% url 'account_signup' %}">Sign Up</a>
+                <a href="{% url 'account_login' %}"  class="hover:text-purple-600 transition-colors duration-200">Login</a>
+                <a href="{% url 'account_signup' %}"  class="hover:text-purple-600 transition-colors duration-200">Sign Up</a>
+                <a href="{% url 'account_login' %}"  class="hover:text-purple-600 transition-colors duration-200">Login</a>
+                <a href="{% url 'account_signup' %}"  class="hover:text-purple-600 transition-colors duration-200">Sign Up</a>
                 {% endif %}
         </nav>
     </div>
