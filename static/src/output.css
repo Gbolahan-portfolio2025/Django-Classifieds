@@ -7,10 +7,7 @@
       "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
-    --color-yellow-300: oklch(90.5% 0.182 98.111);
     --color-purple-600: oklch(55.8% 0.288 302.321);
-    --color-white: #fff;
-    --spacing: 0.25rem;
     --font-weight-normal: 400;
     --font-weight-bold: 700;
     --tracking-wide: 0.025em;
@@ -175,38 +172,11 @@
   .flex {
     display: flex;
   }
-  .min-h-screen {
-    min-height: 100vh;
-  }
-  .w-2\/5 {
-    width: calc(2/5 * 100%);
-  }
-  .w-3\/5 {
-    width: calc(3/5 * 100%);
-  }
-  .items-center {
-    align-items: center;
-  }
   .justify-around {
     justify-content: space-around;
   }
-  .justify-center {
-    justify-content: center;
-  }
   .bg-\[\#fff\] {
     background-color: #fff;
-  }
-  .bg-white {
-    background-color: var(--color-white);
-  }
-  .bg-yellow-300 {
-    background-color: var(--color-yellow-300);
-  }
-  .p-8 {
-    padding: calc(var(--spacing) * 8);
-  }
-  .p-12 {
-    padding: calc(var(--spacing) * 12);
   }
   .pt-\[4rem\] {
     padding-top: 4rem;
@@ -220,8 +190,8 @@
   .pl-\[8rem\] {
     padding-left: 8rem;
   }
-  .text-\[1rem\] {
-    font-size: 1rem;
+  .text-\[1\.125rem\] {
+    font-size: 1.125rem;
   }
   .text-\[62\.5\%\] {
     font-size: 62.5%;
@@ -266,6 +236,16 @@
         color: var(--color-purple-600);
       }
     }
+  }
+}
+@layer base {
+  html {
+    font-size: 62.5%;
+    font-family: "Funnel Sans", ui-sans-serif, system-ui, sans-serif;
+  }
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 @property --tw-leading {

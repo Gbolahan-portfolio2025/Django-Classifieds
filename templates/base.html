@@ -1,15 +1,17 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en" class="text-[62.5%]">
+<html lang="en" class="text-[62.5%] font-funnel">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Classifieds{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
     <link href="{% static 'src/output.css' %}" rel="stylesheet">
 </head>
 
-<body class="font-rubik text-[#000] leading-none font-normal bg-[#fff] pt-[4rem] pb-[4rem] pl-[8rem] pr-[8rem]">
+<body class="font-funnel text-[#000] leading-none font-normal bg-[#fff] pt-[4rem] pb-[4rem] pl-[8rem] pr-[8rem]" >
         <main>
             {% if messages %}
             <div>

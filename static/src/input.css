@@ -1,1 +1,11 @@
 @import "tailwindcss";
+@layer base {
+    html {
+        font-size: 62.5%;
+        /* Makes 1rem = 10px */
+        font-family: "Funnel Sans", ui-sans-serif, system-ui, sans-serif;
+    }
+
+    body {
+        @apply antialiased;
+    } }
