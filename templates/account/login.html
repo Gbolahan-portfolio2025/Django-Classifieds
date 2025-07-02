@@ -22,16 +22,23 @@
         </nav>
     </div>
 
-    <div class="">
-        <!-- Left side: Image / Branding -->
-        <div class="">
-            <img src="{% static 'images/signup.svg' %}" alt="signup-illustration" />
+    <div class="min-h-screen grid grid-cols-2">
+        <!-- Left: Illustration + Welcome Text -->
+        <div class="bg-[#f3f0ff] flex flex-col items-center justify-center px-8 py-12 text-center">
+            <div class="w-4/5 max-w-md">
+                <img src="{% static 'images/signup.svg' %}" alt="signup-illustration" class="mb-8">
+                <h2 class="text-3xl font-bold text-[#191919] mb-2">Welcome Back!</h2>
+                <p class="text-base text-gray-700 leading-relaxed">
+                    Sign in to your account and take control of your tasks. Let's stay productive today!
+                </p>
+            </div>
         </div>
     
-        <!-- Right side: Login Form -->
-        <div class="">
-            <form method="post">
+        <!-- Right: Login Form (unstyled for now) -->
+        <div class="flex items-center justify-center px-8 py-12">
+            <form method="post" class="w-full max-w-md">
                 {% csrf_token %}
+                <!-- Form fields go here later -->
             </form>
         </div>
     </div>

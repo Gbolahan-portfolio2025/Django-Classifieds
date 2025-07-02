@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django_otp',        # <-- use django_otp, not otp
     'django_otp.plugins.otp_totp',
     'ads',
+    "crispy_forms",
 ]
 
 MIDDLEWARE = [
