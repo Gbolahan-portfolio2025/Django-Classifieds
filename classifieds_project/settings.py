@@ -181,3 +181,4 @@ ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
+
