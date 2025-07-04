@@ -5,16 +5,14 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-    <section class="bg-white rounded-3xl shadow-2xl overflow-hidden ">
-        <div>
-            <nav
-                class="flex items-center justify-between px-6 py-4 border-b border-gray-200 uppercase text-[1.125rem] font-bold tracking-wide text-[#000] bg-white">
-            
+    <section class="bg-white rounded-[2rem] py-[3.2rem] px-[4.8rem]">
+        <div class="pb-[1.2rem] uppercase">
+            <nav class="grid grid-cols-[1.5fr_2.5fr] tracking-[0.75px] items-center font-bold text-[1.225rem]">
                 <!-- Left: Brand Text Logo -->
-                <div class="text-[#7E6EFF] text-xl font-extrabold tracking-tight">TODO</div>
+                <div class="text-[#7E6EFF] text-[1.6rem] font-extrabold" >TODO</div>
             
                 <!-- Right: Nav Links -->
-                <div class="flex gap-6 items-center">
+                <div class="flex justify-between ">
                     {% if user.is_authenticated %}
                     <a href="{% url 'ad_list' %}" class="hover:text-[#7E6EFF] transition duration-200">All Ads</a>
                     <a href="{% url 'my_ads' %}" class="hover:text-[#7E6EFF] transition duration-200">My Ads</a>
@@ -23,30 +21,31 @@
                     {% else %}
                     <a href="{% url 'account_login' %}" class="hover:text-[#7E6EFF] transition duration-200">Login</a>
                     <a href="{% url 'account_signup' %}" class="hover:text-[#7E6EFF] transition duration-200">Sign Up</a>
+                    <a href="{% url 'account_login' %}" class="hover:text-[#7E6EFF] transition duration-200">Login</a>
+                    <a href="{% url 'account_signup' %}" class="hover:text-[#7E6EFF] transition duration-200">Sign Up</a>
                     {% endif %}
                 </div>
             </nav>
-            
         </div>
     
-        <div class="min-h-screen grid grid-cols-2">
+        <div class="grid grid-cols-[1fr_2fr]">
             <!-- Left: Illustration + Welcome Text -->
-            <div class="flex flex-col items-center ">
-                <div class="w-full max-w-md">
-                    <div class="">
+            <div class="flex flex-col ">
+                <div class="w-full">
+                    <div class="overflow-hidden">
                         <video autoplay muted loop playsinline class="w-full h-auto">
-                            <source src="{% static 'videos/signup.mp4' %}" type="video/mp4">
+                            <source src="{% static 'videos/signup-1.mp4' %}" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
-                    </div>
-            
-                    <h2 class="text-4xl font-extrabold text-[#191919] mb-4 leading-tight">Welcome Back!</h2>
-                    <p class="text-lg text-gray-700 leading-relaxed">
+                        </div>
+                    <h2 class="">Welcome Back!</h2>
+                    <p class="">
                         Sign in to your account and take control of your tasks.
-                        <br class="hidden sm:inline" />
+                        <br class="" />
                         Let’s stay productive today!
                     </p>
                 </div>
+                
             </div>
               
         
